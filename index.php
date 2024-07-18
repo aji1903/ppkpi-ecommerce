@@ -1,4 +1,7 @@
-<?php include 'admin/koneksi/koneksi.php'
+<?php
+session_start();
+
+include 'admin/koneksi/koneksi.php'
     ?>
 
 <!-- /*
