@@ -1,8 +1,9 @@
 <?php
 session_start();
-
-include 'admin/koneksi/koneksi.php'
-    ?>
+// print_r($_SESSION);
+// die;
+include 'admin/koneksi/koneksi.php';
+?>
 
 <!-- /*
 * Bootstrap 5

@@ -1,6 +1,6 @@
 <?php
-print_r($_SESSION);
-die;
+// print_r($_SESSION);
+// die;
 if (isset($_POST['simpan'])) {
     $nama_lengkap = $_POST['nama_lengkap'];
     $email = $_POST['email'];
