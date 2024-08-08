@@ -90,9 +90,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../layout/boxed.html" class="nav-link">
+                            <a href="?pg=tess_siswa" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Boxed</p>
+                                <p>Test Siswa</p>
                             </a>
                         </li>
                         <li class="nav-item">

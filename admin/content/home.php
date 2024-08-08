@@ -1,5 +1,5 @@
 <?php
-include '../koneksi/koneksi.php';
+include 'koneksi/koneksi.php';
 
 function getData($koneksi, $table, $id)
 {

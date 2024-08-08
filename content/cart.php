@@ -3,6 +3,7 @@ if (!isset($_SESSION['id_member'])) {
     header('location:?pg=member&message=Register-Dulu');
 }
 ?>
+
 <!-- Start Hero Section -->
 <div class="hero">
     <div class="container">
@@ -39,61 +40,39 @@ if (!isset($_SESSION['id_member'])) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="product-thumbnail">
-                                    <img src="images/product-1.png" alt="Image" class="img-fluid">
-                                </td>
-                                <td class="product-name">
-                                    <h2 class="h5 text-black">Product 1</h2>
-                                </td>
-                                <td>$49.00</td>
-                                <td>
-                                    <div class="input-group mb-3 d-flex align-items-center quantity-container"
-                                        style="max-width: 120px;">
-                                        <div class="input-group-prepend">
-                                            <button class="btn btn-outline-black decrease"
-                                                type="button">&minus;</button>
-                                        </div>
-                                        <input type="text" class="form-control text-center quantity-amount" value="1"
-                                            placeholder="" aria-label="Example text with button addon"
-                                            aria-describedby="button-addon1">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-black increase" type="button">&plus;</button>
-                                        </div>
-                                    </div>
+                            <?php foreach ($_SESSION['cart'] as $item):
 
-                                </td>
-                                <td>$49.00</td>
-                                <td><a href="#" class="btn btn-black btn-sm">X</a></td>
-                            </tr>
-
-                            <tr>
-                                <td class="product-thumbnail">
-                                    <img src="images/product-2.png" alt="Image" class="img-fluid">
-                                </td>
-                                <td class="product-name">
-                                    <h2 class="h5 text-black">Product 2</h2>
-                                </td>
-                                <td>$49.00</td>
-                                <td>
-                                    <div class="input-group mb-3 d-flex align-items-center quantity-container"
-                                        style="max-width: 120px;">
-                                        <div class="input-group-prepend">
-                                            <button class="btn btn-outline-black decrease"
-                                                type="button">&minus;</button>
+                                ?>
+                                <tr>
+                                    <td class="product-thumbnail">
+                                        <img src="admin/upload/<?= $item['foto']; ?>" alt="Image" class="img-fluid">
+                                    </td>
+                                    <td class="product-name">
+                                        <h2 class="h5 text-black"><?= $item['nama_produk']; ?></h2>
+                                    </td>
+                                    <td><?= "Rp." . number_format($item['harga']) ?></td>
+                                    <td>
+                                        <div class="input-group mb-3 d-flex align-items-center quantity-container"
+                                            style="max-width: 120px;">
+                                            <div class="input-group-prepend">
+                                                <button class="btn btn-outline-black decrease"
+                                                    type="button">&minus;</button>
+                                            </div>
+                                            <input type="text" class="form-control text-center quantity-amount"
+                                                value="<?= $item['qty'] ?>" placeholder=""
+                                                aria-label="Example text with button addon"
+                                                aria-describedby="button-addon1">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-black increase" type="button">&plus;</button>
+                                            </div>
                                         </div>
-                                        <input type="text" class="form-control text-center quantity-amount" value="1"
-                                            placeholder="" aria-label="Example text with button addon"
-                                            aria-describedby="button-addon1">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-black increase" type="button">&plus;</button>
-                                        </div>
-                                    </div>
 
-                                </td>
-                                <td>$49.00</td>
-                                <td><a href="#" class="btn btn-black btn-sm">X</a></td>
-                            </tr>
+                                    </td>
+                                    <td><?= "Rp." . number_format($item['harga'] * $item['qty']); ?></td>
+                                    <td><a href="?pg=action_cart&delete-cart=<?= $item['id_produk'] ?>"
+                                            class="btn btn-black btn-sm">X</a></td>
+                                </tr>
+                            <?php endforeach ?>
                         </tbody>
                     </table>
                 </div>

@@ -1,17 +1,51 @@
 <?php
-if (!isset($_SESSION['id_member'])) {
-    header('location:?pg=member&message=Register-Dulu');
+
+if (isset($_GET['delete-cart'])) {
+    $id_produk = $_GET['delete-cart'];
+    foreach ($_SESSION['cart'] as $key => $item) {
+        if ($item['id_produk'] == $id_produk) {
+            unset($_SESSION['cart'][$key]);
+            $_SESSION['cart'] = array_values($_SESSION['cart']);
+            header("location:?pg=cart");
+        }
+    }
 } else {
-    $id_member = $_SESSION['id_member'];
-    $id_produk=$_POST['id_produk'];
-    $queryCart= mysqli_query($koneksi,"SELECT id_produk, qty FROM detail WHERE id_produk ='$id_produk'");
-    while($rowCart=mysqli_fetch_assoc($queryCart)){
+
+    // memeriksa ada atau tidak di dalam variable session
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = array();
+
 
     }
-//     $penjualan = mysqli_query($koneksi, "INSERT INTO penjualan (id_member,status) VALUES ('$id_member',0)");
+    if (!isset($_SESSION['id_member'])) {
+        header('location:?pg=member&message=Register-Dulu');
+    } else {
+        $id_member = $_SESSION['id_member'];
+        $id_produk = $_POST['id_produk'];
+        $queryCart = mysqli_query($koneksi, "SELECT * FROM barang WHERE id ='$id_produk'");
+        $rowBarang = mysqli_fetch_assoc($queryCart);
 
-//     if($penjualan){
-//         $id_penjualan = mysqli_insert_id($koneksi);
-//     }
-// }
+        $product_exist = false;
+        //periksa apakah produk sudah ada di keranjang
+        foreach ($_SESSION['cart'] as &$item) {
+            if ($item['id_produk'] == $id_produk) {
+                $item['qty'] += 1;
+                $product_exist = true;
+                break;
+            }
+        }
+        $session_produk = array(
+            'id_produk' => $id_produk,
+            'nama_produk' => $rowBarang['nama_produk'],
+            'qty' => 1,
+            'harga' => $rowBarang['harga'],
+            'foto' => $rowBarang['foto'],
+        );
+        //jika nilai session nya kosong atau kerajng belanja nya produknya masih kosong
+        if (!$product_exist) {
+            $_SESSION['cart'][] = $session_produk;
+        }
+        header('location:index.php?tambah=cart-berhasil');
+    }
+}
 ?>

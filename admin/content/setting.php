@@ -21,8 +21,6 @@ if (isset($_POST['simpan'])) {
         header("location:?pg=setting&insert=berhasil");
     }
 
-
-    # code...
 }
 $rowSetting = mysqli_fetch_assoc($querySetting);
 
